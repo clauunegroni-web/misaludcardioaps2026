@@ -5,7 +5,10 @@ export default function Home() {
     <>
       <Head>
         <title>Mi Salud Cardio | Cápsulas educativas</title>
-        <meta name="description" content="Educación cardiovascular para el autocuidado." />
+        <meta
+          name="description"
+          content="Educación cardiovascular para el autocuidado."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -13,39 +16,88 @@ export default function Home() {
         <header className="hero">
           <div className="container">
             <p className="eyebrow">Educación para el autocuidado</p>
+
             <h1>Mi Salud Cardio</h1>
-            <p className="lead">Cápsulas educativas para comprender, prevenir y cuidar la salud cardiovascular.</p>
+
+            <p className="lead">
+              Cápsulas educativas para comprender, prevenir y cuidar la salud
+              cardiovascular.
+            </p>
           </div>
         </header>
 
-        <section className="container section" aria-labelledby="capsulas-title">
+        <section
+          className="container section"
+          aria-labelledby="capsulas-title"
+        >
           <div className="section-heading">
             <p className="eyebrow">Aprende a tu ritmo</p>
+
             <h2 id="capsulas-title">Cápsulas educativas</h2>
-            <p>Información clara para acompañar el cuidado diario de tu corazón y tus vasos sanguíneos.</p>
+
+            <p>
+              Información clara para acompañar el cuidado diario de tu corazón
+              y tus vasos sanguíneos.
+            </p>
           </div>
 
           <article className="capsule" aria-labelledby="hta-title">
             <div className="capsule-content">
               <span className="tag">Hipertensión arterial</span>
-              <h3 id="hta-title">Colesterol y salud cardiovascular</h3>
-              <p>Conoce la diferencia entre colesterol HDL y LDL, y por qué mantenerlos controlados ayuda a proteger las arterias y disminuir el riesgo cardiovascular.</p>
+
+              <h3 id="hta-title">
+                Cómo medir correctamente la presión arterial
+              </h3>
+
+              <p>
+                Aprende a preparar tu cuerpo, sentarte correctamente y registrar
+                tu resultado para obtener una medición de presión arterial más
+                confiable en casa.
+              </p>
+
+              <div className="steps" aria-label="Pasos importantes">
+                <p className="steps-title">Antes y durante la medición:</p>
+
+                <ul>
+                  <li>Descansa sentado o sentada al menos 5 minutos.</li>
+                  <li>Apoya la espalda y ambos pies en el suelo.</li>
+                  <li>Mantén el brazo apoyado a la altura del corazón.</li>
+                  <li>No hables ni te muevas mientras el equipo mide.</li>
+                </ul>
+              </div>
+
               <div className="notice" role="note">
-                Este material es educativo y no reemplaza la evaluación de tu equipo de salud.
+                Este material es educativo y no reemplaza la evaluación de tu
+                equipo de salud.
               </div>
             </div>
 
             <div className="video-wrap">
-              <video controls playsInline preload="metadata" aria-label="Video educativo sobre colesterol y salud cardiovascular">
-                <source src="/videos/Diseño%20sin%20título%20(3).mp4" type="video/mp4" />
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                aria-label="Video educativo: cómo medir correctamente la presión arterial"
+              >
+                <source
+                  src="https://kv196ctez5usceel.public.blob.vercel-storage.com/capsula-Presion%20arterial-hdl-ldl-v1.mp4.mp4"
+                  type="video/mp4"
+                />
                 Tu navegador no puede reproducir este video.
               </video>
+
+              <p className="video-help">
+                Presiona reproducir para ver la cápsula. Puedes pausar, ajustar
+                el volumen o usar pantalla completa.
+              </p>
             </div>
           </article>
         </section>
 
         <footer>
-          <div className="container">Mi Salud Cardio · Educación cardiovascular para la comunidad</div>
+          <div className="container">
+            Mi Salud Cardio · Educación cardiovascular para la comunidad
+          </div>
         </footer>
       </main>
     </>
