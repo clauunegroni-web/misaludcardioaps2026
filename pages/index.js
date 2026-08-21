@@ -91,7 +91,41 @@ export default function Home() {
                 el volumen o usar pantalla completa.
               </p>
             </div>
-          </article>
+  <article className="capsule" aria-labelledby="hdl-ldl-title">
+  <div className="capsule-content">
+    <span className="tag">Colesterol y salud cardiovascular</span>
+
+    <h3 id="hdl-ldl-title">Colesterol HDL y LDL</h3>
+
+    <p>
+      Aprende qué significan el colesterol HDL y LDL y por qué es importante
+      controlarlos para cuidar tu corazón.
+    </p>
+
+    <video
+      controls
+      preload="metadata"
+      playsInline
+      style={{
+        width: "100%",
+        maxWidth: "720px",
+        borderRadius: "16px",
+        backgroundColor: "#000",
+        display: "block",
+        margin: "16px auto"
+      }}
+    >
+      <source
+        src="https://kv196ctez5usceel.public.blob.vercel-storage.com/capsula-Presion%20arterial-hdl-ldl-v1.mp4.mp4"
+        type="video/mp4"
+      />
+      Tu navegador no puede reproducir este video.
+    </video>
+
+    <p className="muted">Presiona ▶ para reproducir esta cápsula.</p>
+  </div>
+</article>
+</section>
         </section>
 
         <footer>
