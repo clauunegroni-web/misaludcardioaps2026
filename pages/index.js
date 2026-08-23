@@ -188,3 +188,39 @@ export default function Home() {
     </>
   )
 }
+
+.video-wrap {
+  width: 100%;
+  max-width: 720px;
+  margin: 1.5rem auto 0;
+}
+
+.video-wrap video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #000;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(15, 50, 72, 0.18);
+}
+
+.video-help {
+  margin: 0.75rem 0 0;
+  color: #36556c;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .capsule {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.95fr);
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .video-wrap {
+    margin: 0;
+  }
+}
