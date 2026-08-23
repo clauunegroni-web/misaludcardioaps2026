@@ -83,7 +83,7 @@ export default function CapsulaPage({ capsula }) {
         </header>
 
         <section className="container section">
-          <div className="capsule-player">
+          <div className={`capsule-player capsule-player-${capsula.orientacion || 'horizontal'}`}>
             <video
               ref={videoRef}
               controls
