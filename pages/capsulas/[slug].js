@@ -17,30 +17,41 @@ export async function getStaticProps({ params }) {
 
 export default function CapsulaPage({ capsula }) {
   const videoRef = useRef(null)
-  const [videoFalla, setVideoFalla] = useState(false)
+  const [hablando, setHablando] = useState(false)
 
   if (!capsula) return null
 
-  const leerObjetivo = () => {
+  const escuchar = () => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return
-    const texto = `${capsula.titulo}. ${capsula.resumen} ${capsula.objetivo}`
-    const utter = new SpeechSynthesisUtterance(texto)
+    const utter = new SpeechSynthesisUtterance(capsula.audioTexto)
     utter.lang = 'es-CL'
     const voces = window.speechSynthesis.getVoices()
     const femenina =
       voces.find((v) => v.lang === 'es-CL' && /female|mujer/i.test(v.name)) ||
-      voces.find((v) => v.lang.startsWith('es') && /female|mujer/i.test(v.name)) ||
+      voces.find(
+        (v) => v.lang.startsWith('es') && /female|mujer/i.test(v.name)
+      ) ||
       voces.find((v) => v.lang.startsWith('es'))
     if (femenina) utter.voice = femenina
-    utter.rate = 0.95
+    utter.rate = 0.92
+    utter.onstart = () => setHablando(true)
+    utter.onend = () => setHablando(false)
     window.speechSynthesis.cancel()
-    window.speechSynthesis.speak(utter)
     if (videoRef.current) videoRef.current.pause()
+    window.speechSynthesis.speak(utter)
+  }
+
+  const detener = () => {
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      window.speechSynthesis.cancel()
+      setHablando(false)
+    }
   }
 
   const onPlayVideo = () => {
     if (typeof window !== 'undefined' && window.speechSynthesis) {
       window.speechSynthesis.cancel()
+      setHablando(false)
     }
   }
 
@@ -55,7 +66,7 @@ export default function CapsulaPage({ capsula }) {
       <main>
         <header className={`capsule-hero hero-${capsula.color}`}>
           <div className="container">
-            <Link href="/" className="back-link">
+            <Link href="/capsulas" className="back-link">
               ← Volver a las cápsulas
             </Link>
             <p className="eyebrow">{capsula.tema}</p>
@@ -64,104 +75,92 @@ export default function CapsulaPage({ capsula }) {
             <div className="hero-actions">
               <button
                 type="button"
-                onClick={leerObjetivo}
-                className="btn btn-secondary"
-                aria-label={`Escuchar la descripción de ${capsula.titulo}`}
+                onClick={hablando ? detener : escuchar}
+                className="btn btn-secondary btn-xl"
+                aria-label={
+                  hablando
+                    ? `Detener el audio de ${capsula.titulo}`
+                    : `Escuchar ${capsula.titulo} en voz alta`
+                }
               >
-                🔊 Escuchar
+                🔊 {hablando ? 'Detener audio' : 'Escuchar'}
               </button>
-              <a
-                href={capsula.video}
-                download
-                className="btn btn-ghost"
-                aria-label={`Descargar el video de ${capsula.titulo}`}
-              >
-                ⬇ Descargar video
-              </a>
+              {capsula.tipo === 'video' && (
+                <a
+                  href={capsula.video}
+                  download
+                  className="btn btn-ghost btn-xl"
+                >
+                  ⬇ Descargar video
+                </a>
+              )}
             </div>
           </div>
         </header>
 
         <section className="container section">
-          <div className={`capsule-player capsule-player-${capsula.orientacion || 'horizontal'}`}>
-            <video
-              ref={videoRef}
-              controls
-              playsInline
-              preload="metadata"
-              poster={capsula.poster}
-              onPlay={onPlayVideo}
-              onError={() => setVideoFalla(true)}
-              aria-label={`Video: ${capsula.titulo}`}
-            >
-              <source src={capsula.video} type="video/mp4" />
-              Tu navegador no puede reproducir este video.
-            </video>
-
-            {videoFalla && (
-              <div className="video-fallback" role="alert">
-                <p>
-                  El video no se pudo reproducir aquí. Puedes verlo o
-                  descargarlo directamente:
-                </p>
-                <a
-                  href={capsula.video}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary"
-                >
-                  Abrir video en pestaña nueva
-                </a>
-              </div>
-            )}
-
-            <p className="video-help">
-              Presiona reproducir para ver la cápsula. Puedes pausar, ajustar
-              el volumen o usar pantalla completa. Duración{' '}
-              {capsula.duracionTexto}.
-            </p>
-          </div>
-
-          <div className="capsule-info-grid">
-            <article className="info-card">
-              <h2>Objetivo de esta cápsula</h2>
-              <p>{capsula.objetivo}</p>
-            </article>
-
-            <article className="info-card">
-              <h2>Qué vas a aprender</h2>
-              <ul>
-                {capsula.aprender.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
-            </article>
-
-            <article className="info-card teachback-card">
-              <h2>Para practicar</h2>
-              <p>{capsula.teachback}</p>
-              <p className="teachback-hint">
-                Conversa esta pregunta con tu química farmacéutica, tu equipo
-                de salud o tu cuidador.
+          {capsula.tipo === 'video' ? (
+            <div className="capsule-player">
+              <video
+                ref={videoRef}
+                controls
+                playsInline
+                preload="metadata"
+                poster={capsula.imagen}
+                onPlay={onPlayVideo}
+                aria-label={`Video: ${capsula.titulo}`}
+              >
+                <source src={capsula.video} type="video/mp4" />
+                Tu navegador no puede reproducir este video.
+              </video>
+              <p className="video-help">
+                Presiona reproducir para ver el video. Duración{' '}
+                {capsula.duracionTexto}. También puedes escuchar los pasos con
+                el botón de arriba.
               </p>
-            </article>
-
-            <div className="notice" role="note">
-              {capsula.aviso}
             </div>
-          </div>
+          ) : (
+            <div className="capsule-image-wrap">
+              <img
+                src={capsula.imagen}
+                alt={`Ilustración de ${capsula.titulo}`}
+                className="capsule-image"
+              />
+              <p className="video-help">
+                Presiona el botón{' '}
+                <strong>🔊 Escuchar</strong> arriba para oír los pasos en voz
+                alta.
+              </p>
+            </div>
+          )}
+
+          <article className="pasos-card">
+            <h2>Pasos importantes</h2>
+            <ol className="pasos-lista">
+              {capsula.pasos.map((p, i) => (
+                <li key={i}>{p}</li>
+              ))}
+            </ol>
+          </article>
+
+          <aside className="aviso-card" role="note">
+            <strong>Importante:</strong> {capsula.aviso}
+          </aside>
 
           <div className="capsule-nav">
-            <Link href="/" className="btn btn-ghost">
+            <Link href="/capsulas" className="btn btn-ghost btn-xl on-light">
               ← Ver todas las cápsulas
+            </Link>
+            <Link href="/" className="btn btn-ghost btn-xl on-light">
+              🏠 Volver al inicio
             </Link>
           </div>
         </section>
 
         <footer>
-          <div className="container footer-inner">
-            <p>Mi Salud Cardio · Educación cardiovascular para la comunidad</p>
-            <p className="footer-attribution">
+          <div className="container">
+            <p>Mi Salud Cardio · Educación cardiovascular accesible</p>
+            <p className="footer-sub">
               Proyecto vinculado a la Universidad de Valparaíso, Chile.
             </p>
           </div>
