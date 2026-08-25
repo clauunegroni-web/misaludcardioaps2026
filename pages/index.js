@@ -156,6 +156,8 @@ export default function Home() {
               </a>
               <a
                 href="https://mi-salud-cardio-b149colun-clauunegroni-7645s-projects.vercel.app/capsulas/presion"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-video"
                 aria-label="Acceso a videos educativos: cómo tomar la presión, emergencia cardíaca e insulina"
               >
