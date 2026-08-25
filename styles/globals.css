@@ -599,6 +599,32 @@ a { color: var(--teal-dark); }
   box-shadow: var(--shadow-lg);
 }
 
+.capsule-infografia {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  padding: 0;
+}
+
+.capsule-infografia-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  background: #fff;
+}
+
+.capsule-infografia-nota {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  background: #fff3cd;
+  border-left: 4px solid #d97706;
+  border-radius: 8px;
+  color: #7a4a00;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
 .video-help {
   margin: 16px 0 0;
   color: var(--muted);

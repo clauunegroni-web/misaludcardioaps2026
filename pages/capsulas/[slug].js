@@ -134,6 +134,26 @@ export default function CapsulaPage({ capsula }) {
             </div>
           )}
 
+          {capsula.infografia && (
+            <figure className="capsule-infografia">
+              <img
+                src={capsula.infografia}
+                alt={capsula.infografiaAlt || `Infografía de ${capsula.titulo}`}
+                className="capsule-infografia-img"
+                loading="lazy"
+              />
+              <figcaption className="video-help">
+                Infografía educativa. Puedes ampliarla con los gestos de zoom de
+                tu dispositivo.
+              </figcaption>
+              {capsula.infografiaNota && (
+                <p className="capsule-infografia-nota" role="note">
+                  <strong>Aviso:</strong> {capsula.infografiaNota}
+                </p>
+              )}
+            </figure>
+          )}
+
           <article className="pasos-card">
             <h2>Pasos importantes</h2>
             <ol className="pasos-lista">
