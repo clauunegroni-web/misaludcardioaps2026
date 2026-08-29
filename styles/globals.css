@@ -778,3 +778,15 @@ footer p { margin: 4px 0; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* Portada con los ocho accesos ilustrados */
+.accesos-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.acceso-card { display: flex; flex-direction: column; min-height: 220px; padding: 16px; padding-bottom: 52px; }
+.acceso-imagen { width: 76px; height: 76px; object-fit: cover; border-radius: 14px; background: var(--white); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+.acceso-card .acceso-texto { margin-top: 12px; }
+.acceso-card .acceso-texto h3 { font-size: 1.05rem; }
+.acceso-card .acceso-texto p { font-size: .9rem; line-height: 1.35; }
+.acceso-card .acceso-boton { bottom: 14px; left: 16px; padding: 6px 14px; }
+.acceso-activo { border-color: var(--morado); background: var(--morado-bg); }
+@media (max-width: 860px) { .accesos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .accesos-grid { grid-template-columns: 1fr; } .acceso-card { min-height: 150px; flex-direction: row; gap: 14px; padding-bottom: 56px; } .acceso-card .acceso-texto { margin-top: 0; } }
